@@ -34,3 +34,4 @@ else:
 
             except Exception as e:
                 st.error(f"❌ API Hatası: {e}")
+st.markdown("[💳 Satın Al](https://www.shopier.com/34030547)", unsafe_allow_html=True)
