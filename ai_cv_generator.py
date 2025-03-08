@@ -3,7 +3,7 @@ import openai
 import time
 
 # OpenAI API Anahtarını Kullan
-client = openai.OpenAI(api_key="YOUR_OPENAI_API_KEY")  # Buraya API anahtarını ekle
+client = openai.OpenAI(api_key="sk-proj-AYlZGwk0dprjOOrR-WPhyqbGE4wFLR3Bdi5k6lJlx82m0DS0WIznGNalb2NyNjM5_6ZJDHmtEST3BlbkFJRc6vrCi-zSQ4ZhoLGM_9v4D8ZOlBiRyU3XNmgLE98wt4-8io_a65fPOZMD5fIRpoRLptzU60sA") 
 
 st.title("📄 AI Destekli Otomatik CV & Motivasyon Mektubu Oluşturucu")
 
