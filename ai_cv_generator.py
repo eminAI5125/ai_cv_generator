@@ -1,13 +1,9 @@
 import streamlit as st
 import openai
-import stripe
 import time
 
-# OpenAI API Anahtarını Yükle
-openai.api_key = "YOUR_OPENAI_API_KEY"
-
-# Stripe Ödeme Entegrasyonu
-stripe.api_key = "YOUR_STRIPE_SECRET_KEY"
+# OpenAI API Anahtarını Kullan
+client = openai.OpenAI(api_key="YOUR_OPENAI_API_KEY")  # Buraya API anahtarını ekle
 
 st.title("📄 AI Destekli Otomatik CV & Motivasyon Mektubu Oluşturucu")
 
@@ -24,7 +20,7 @@ if st.button("📥 CV & Motivasyon Mektubunu Oluştur"):
         time.sleep(3)
         
         # OpenAI API ile CV & Motivasyon Mektubu Üret
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "Sen profesyonel bir CV ve motivasyon mektubu oluşturma asistanısın."},
@@ -32,29 +28,7 @@ if st.button("📥 CV & Motivasyon Mektubunu Oluştur"):
             ]
         )
         
-        ai_generated_text = response["choices"][0]["message"]["content"]
+        ai_generated_text = response.choices[0].message.content
         
         st.success("✅ CV ve Motivasyon Mektubu Başarıyla Oluşturuldu!")
         st.text_area("📄 CV ve Motivasyon Mektubu", value=ai_generated_text, height=300)
-        
-        # Ödeme Sistemi
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            line_items=[
-                {
-                    "price_data": {
-                        "currency": "usd",
-                        "product_data": {
-                            "name": "AI Destekli CV & Motivasyon Mektubu"
-                        },
-                        "unit_amount": 990,
-                    },
-                    "quantity": 1,
-                },
-            ],
-            mode="payment",
-            success_url="https://yourwebsite.com/success",
-            cancel_url="https://yourwebsite.com/cancel",
-        )
-        
-        st.markdown(f"[💳 Ödeme Yap ve Belgeni Al]({checkout_session.url})", unsafe_allow_html=True)
