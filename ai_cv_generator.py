@@ -1,9 +1,15 @@
 import streamlit as st
 import google.generativeai as genai
+import os
 import time
 
-# Google Gemini API Anahtarını Kullan
-genai.configure(api_key="AIzaSyCAIK9I1yhha4Na3e9Y7EWoxJjy8axr4DM")  
+# Google Gemini API Anahtarını Streamlit Secrets'tan Al
+api_key = os.getenv("AIzaSyCAIK9I1yhha4Na3e9Y7EWoxJjy8axr4DM")
+
+if not api_key:
+    st.error("❌ Google Gemini API anahtarı bulunamadı. Lütfen Streamlit Secrets'a eklediğinizden emin olun.")
+else:
+    genai.configure(api_key=api_key)
 
 st.title("📄 AI Destekli Otomatik CV & Motivasyon Mektubu Oluşturucu")
 
